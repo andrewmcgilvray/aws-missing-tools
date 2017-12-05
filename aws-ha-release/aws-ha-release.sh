@@ -92,10 +92,10 @@ do
 done
 
 #gets Auto Scaling Group max-size
-asg_initial_max_size=`echo $asg_result | awk '/MaxSize/{ print $2 }' RS=,`
+asg_initial_max_size=`echo $asg_result | awk '/"MaxSize"/{ print $2 }' RS=,`
 asg_temporary_max_size=$(($asg_initial_max_size+1))
 #gets Auto Scaling Group desired-capacity
-asg_initial_desired_capacity=`echo $asg_result | awk '/DesiredCapacity/{ print $2 }' RS=,`
+asg_initial_desired_capacity=`echo $asg_result | awk '/"DesiredCapacity"/{ print $2 }' RS=,`
 asg_temporary_desired_capacity=$((asg_initial_desired_capacity+1))
 #gets list of Auto Scaling Group Instances - these Instances will be terminated
 asg_instance_list=`echo "$asg_result" | grep InstanceId | sed 's/.*i-/i-/' | sed 's/",//'`
